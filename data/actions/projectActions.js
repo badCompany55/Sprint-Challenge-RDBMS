@@ -1,7 +1,9 @@
 const db = require("../knex.js");
 
 module.exports = {
-  getProjectByID
+  getProjectByID,
+  allProjects,
+  newProject
 };
 
 async function getProjectByID(id) {
@@ -11,4 +13,12 @@ async function getProjectByID(id) {
   const actions = await db("actions").where("act_pro_id", id);
   const newProject = { ...project, actions };
   return newProject;
+}
+
+function allProjects() {
+  return db("projects");
+}
+
+function newProject(pro) {
+  return db("projects").insert(pro);
 }
